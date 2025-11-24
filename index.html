@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit Fusion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 class="logo">Fit Fusion</h2>
+
+        <ul class="menu">
+            <li class="menu-item active" onclick="showPage('dashboard')">🏠 Dashboard</li>
+            <li class="menu-item" onclick="showPage('workouts')">💪 Workouts</li>
+            <li class="menu-item" onclick="showPage('diet')">🥗 Diet Plan</li>
+            <li class="menu-item" onclick="showPage('hydration')">💧 Hydration</li>
+            <li class="menu-item" onclick="showPage('profile')">👤 Profile</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page active">
+            <h1 class="welcome">Welcome back, <span class="highlight">Arya</span></h1>
+
+            <!-- Cards Row -->
+            <div class="cards">
+                
+                <div class="card clickable-card" onclick="navigateToPage('workouts')">
+                    <div class="icon">📈</div>
+                    <h3>Workout Plan</h3>
+                    <p>Lose Weight</p>
+                </div>
+
+                <div class="card clickable-card" onclick="navigateToPage('diet')">
+                    <div class="icon">🥗</div>
+                    <h3>Diet Plan</h3>
+                    <p>2000 kcal target</p>
+                </div>
+
+                <div class="card clickable-card" onclick="navigateToPage('hydration')">
+                    <div class="icon">💧</div>
+                    <h3>Hydration</h3>
+                    <p>0% of daily goal</p>
+                    <div class="progress">
+                        <div class="bar"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- BMI Tracker Box -->
+            <div class="bmi-box">
+                <h2>BMI Tracker</h2>
+
+                <div class="bmi-content">
+
+                    <div class="bmi-stats">
+                        <p class="bmi-label">Your BMI</p>
+                        <h1 id="bmiValue">24.5</h1>
+                        <p id="bmiStatus" class="bmi-status normal">Normal</p>
+                    </div>
+
+                    <div class="bmi-form">
+                        <label>Weight (kg)</label>
+                        <input type="number" id="weightInput" value="70">
+
+                        <label>Height (cm)</label>
+                        <input type="number" id="heightInput" value="170">
+
+                        <button onclick="calculateBMI()">Update BMI</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Workouts Page -->
+        <div id="workouts-page" class="page">
+            <h1 class="welcome">💪 Workouts</h1>
+            
+            <div class="workout-layout">
+                <div class="workout-categories">
+                    <div class="card clickable-card" onclick="navigateToWorkout('weight-loss')">
+                        <div class="icon">🔥</div>
+                        <h3>Weight Loss</h3>
+                        <p>Burn calories and lose weight</p>
+                    </div>
+                    
+                    <div class="card clickable-card" onclick="navigateToWorkout('weight-gain')">
+                        <div class="icon">💪</div>
+                        <h3>Weight Gain</h3>
+                        <p>Build muscle and gain weight</p>
+                    </div>
+                    
+                    <div class="card clickable-card" onclick="navigateToWorkout('specific')">
+                        <div class="icon">🎯</div>
+                        <h3>Specific</h3>
+                        <p>Target specific body parts</p>
+                    </div>
+                </div>
+
+                <div class="visual-panel workout-visual">
+                    <h2>Personalized Training</h2>
+                    <p>Smart recommendations based on your weekly progress and energy levels.</p>
+                    <ul>
+                        <li>Adaptive intensity tracking</li>
+                        <li>Smart recovery suggestions</li>
+                        <li>Visual progress analytics</li>
+                    </ul>
+                    <div class="visual-figure">
+                        <div class="circle large"></div>
+                        <div class="circle medium"></div>
+                        <div class="circle small"></div>
+                        <div class="visual-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weight Loss Page -->
+        <div id="weight-loss-page" class="page">
+            <h1 class="welcome">🔥 Weight Loss</h1>
+            <button class="back-btn" onclick="navigateToPage('workouts')">← Back to Workouts</button>
+            
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Cardio (Running 30min), HIIT (20min), Stretching (10min)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Full Body Circuit (45min), Cardio (15min)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Cycling (40min), Core Workout (20min)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Cardio Kickboxing (30min), Strength Training (30min)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> HIIT (25min), Yoga (25min), Stretching (10min)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weight Gain Page -->
+        <div id="weight-gain-page" class="page">
+            <h1 class="welcome">💪 Weight Gain</h1>
+            <button class="back-btn" onclick="navigateToPage('workouts')">← Back to Workouts</button>
+            
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Chest & Triceps (Bench Press, Incline Press, Dips, Tricep Extensions)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Back & Biceps (Deadlifts, Rows, Pull-ups, Bicep Curls)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Legs & Glutes (Squats, Lunges, Leg Press, Calf Raises)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Shoulders & Core (Shoulder Press, Lateral Raises, Planks, Crunches)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Full Body (Compound Movements, Accessory Work)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Specific Workout Page -->
+        <div id="specific-page" class="page">
+            <h1 class="welcome">🎯 Specific Body Parts</h1>
+            <button class="back-btn" onclick="navigateToPage('workouts')">← Back to Workouts</button>
+            
+            <div class="workout-categories">
+                <div class="card clickable-card" onclick="navigateToWorkout('thigh')">
+                    <div class="icon">🦵</div>
+                    <h3>Thigh</h3>
+                </div>
+                
+                <div class="card clickable-card" onclick="navigateToWorkout('abs')">
+                    <div class="icon">💪</div>
+                    <h3>Abs</h3>
+                </div>
+                
+                <div class="card clickable-card" onclick="navigateToWorkout('arm')">
+                    <div class="icon">💪</div>
+                    <h3>Arm</h3>
+                </div>
+                
+                <div class="card clickable-card" onclick="navigateToWorkout('leg')">
+                    <div class="icon">🦵</div>
+                    <h3>Leg</h3>
+                </div>
+                
+                <div class="card clickable-card" onclick="navigateToWorkout('chest')">
+                    <div class="icon">💪</div>
+                    <h3>Chest</h3>
+                </div>
+                
+                <div class="card clickable-card" onclick="navigateToWorkout('back')">
+                    <div class="icon">🏋️</div>
+                    <h3>Back</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thigh Page -->
+        <div id="thigh-page" class="page">
+            <h1 class="welcome">🦵 Thigh Workout</h1>
+            <button class="back-btn" onclick="navigateToPage('specific')">← Back to Specific</button>
+            
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Squats (4x12), Lunges (3x15 each leg), Leg Press (4x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Bulgarian Split Squats (3x12), Step-ups (3x15), Leg Curls (4x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Sumo Squats (4x12), Side Lunges (3x15 each), Wall Sits (3x45sec)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Front Squats (4x10), Reverse Lunges (3x15), Leg Extensions (4x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Jump Squats (3x15), Walking Lunges (3x20), Thigh Stretches (10min)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Abs Page -->
+        <div id="abs-page" class="page">
+            <h1 class="welcome">💪 Abs Workout</h1>
+            <button class="back-btn" onclick="navigateToPage('specific')">← Back to Specific</button>
+            
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Crunches (3x20), Planks (3x60sec), Russian Twists (3x30)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Leg Raises (3x15), Mountain Climbers (3x30), Bicycle Crunches (3x30)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Sit-ups (3x20), Side Planks (3x45sec each), Dead Bug (3x15)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Ab Wheel (3x12), Hanging Leg Raises (3x12), Flutter Kicks (3x30)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Plank Variations (3x60sec), V-ups (3x15), Oblique Crunches (3x20)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arm Page -->
+        <div id="arm-page" class="page">
+            <h1 class="welcome">💪 Arm Workout</h1>
+            <button class="back-btn" onclick="navigateToPage('specific')">← Back to Specific</button>
+            
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Bicep Curls (4x12), Tricep Dips (3x15), Hammer Curls (3x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Tricep Extensions (4x12), Preacher Curls (3x12), Overhead Press (3x10)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Cable Curls (4x12), Close-grip Push-ups (3x15), Concentration Curls (3x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Tricep Kickbacks (3x15), Barbell Curls (4x10), Diamond Push-ups (3x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> 21s Bicep Curls (3 sets), Tricep Rope Extensions (4x12), Arm Stretches (10min)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leg Page -->
+        <div id="leg-page" class="page">
+            <h1 class="welcome">🦵 Leg Workout</h1>
+            <button class="back-btn" onclick="navigateToPage('specific')">← Back to Specific</button>
+            
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Squats (4x12), Deadlifts (4x10), Calf Raises (4x15)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Leg Press (4x12), Romanian Deadlifts (3x12), Seated Calf Raises (4x15)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Front Squats (4x10), Walking Lunges (3x20), Standing Calf Raises (4x20)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Hack Squats (4x12), Leg Curls (4x12), Single-leg Calf Raises (3x15)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Box Jumps (3x10), Leg Extensions (4x12), Leg Stretches (15min)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chest Page -->
+        <div id="chest-page" class="page">
+            <h1 class="welcome">💪 Chest Workout</h1>
+            <button class="back-btn" onclick="navigateToPage('specific')">← Back to Specific</button>
+            
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Bench Press (4x10), Incline Press (4x10), Push-ups (3x15)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Incline Dumbbell Press (4x12), Decline Press (3x10), Chest Flyes (3x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Push-ups Variations (4x15), Cable Flyes (4x12), Dips (3x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Flat Bench Press (4x10), Incline Flyes (3x12), Pullovers (3x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Chest Dips (3x12), Pec Deck (4x12), Chest Stretches (10min)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Page -->
+        <div id="back-page" class="page">
+            <h1 class="welcome">💪 Back Workout</h1>
+            <button class="back-btn" onclick="navigateToPage('specific')">← Back to Specific</button>
+            
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Deadlifts (4x8), Pull-ups (4x10), Barbell Rows (4x10)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Lat Pulldowns (4x12), T-bar Rows (4x10), Seated Rows (3x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Chin-ups (4x10), One-arm Rows (3x12 each), Face Pulls (3x15)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Wide-grip Pull-ups (4x8), Cable Rows (4x12), Reverse Flyes (3x12)
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Hyperextensions (3x15), Shrugs (4x12), Back Stretches (15min)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diet Plan Page -->
+        <div id="diet-page" class="page">
+            <h1 class="welcome">🥗 Diet Plan</h1>
+            
+            <div class="content-layout">
+                <div class="category-panel">
+                    <div class="workout-categories">
+                        <div class="card clickable-card" onclick="navigateToDiet('diet-weight-loss')">
+                            <div class="icon">🔥</div>
+                            <h3>Weight Loss</h3>
+                            <p>Calorie deficit focused meals</p>
+                        </div>
+
+                        <div class="card clickable-card" onclick="navigateToDiet('diet-weight-gain')">
+                            <div class="icon">🥩</div>
+                            <h3>Weight Gain</h3>
+                            <p>High-calorie balanced nutrition</p>
+                        </div>
+
+                        <div class="card clickable-card" onclick="navigateToDiet('diet-maintain')">
+                            <div class="icon">⚖️</div>
+                            <h3>Maintenance</h3>
+                            <p>Stable macros for balance</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-panel diet-visual">
+                    <h2>Smart Nutrition</h2>
+                    <p>Balanced meal planning powered by macro tracking and hydration insights.</p>
+                    <div class="nutrient-stats">
+                        <div>
+                            <h4>Carbs</h4>
+                            <p>45%</p>
+                        </div>
+                        <div>
+                            <h4>Protein</h4>
+                            <p>30%</p>
+                        </div>
+                        <div>
+                            <h4>Fats</h4>
+                            <p>25%</p>
+                        </div>
+                    </div>
+                    <div class="visual-plate">
+                        <div class="slice slice-1"></div>
+                        <div class="slice slice-2"></div>
+                        <div class="slice slice-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diet Weight Loss Page -->
+        <div id="diet-weight-loss-page" class="page">
+            <h1 class="welcome">🔥 Weight Loss Diet</h1>
+            <button class="back-btn" onclick="navigateToPage('diet')">← Back to Diet Categories</button>
+
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Meal Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Smoothie bowl, quinoa salad, grilled fish + veggies, mixed nuts snack
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Greek yogurt & berries, veggie wrap, tofu stir-fry, apple + almonds
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Oats with chia, lentil soup, baked chicken + greens, carrot sticks
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Avocado toast, chickpea salad, salmon + asparagus, protein shake
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Egg white omelet, Buddha bowl, turkey lettuce wraps, hummus + cucumbers
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diet Weight Gain Page -->
+        <div id="diet-weight-gain-page" class="page">
+            <h1 class="welcome">🥩 Weight Gain Diet</h1>
+            <button class="back-btn" onclick="navigateToPage('diet')">← Back to Diet Categories</button>
+
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Meal Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Peanut butter oatmeal, chicken burrito bowl, steak + potatoes, cottage cheese
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Smoothie with oats, turkey sandwich, pasta with meat sauce, trail mix
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Eggs & toast, quinoa bowl, salmon + rice, yogurt with granola
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Protein pancakes, beef wrap, curry with brown rice, peanut butter sandwich
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Bagel & cream cheese, chicken pasta salad, lamb with couscous, smoothie bowl
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diet Maintenance Page -->
+        <div id="diet-maintain-page" class="page">
+            <h1 class="welcome">⚖️ Maintenance Diet</h1>
+            <button class="back-btn" onclick="navigateToPage('diet')">← Back to Diet Categories</button>
+
+            <div class="page-content">
+                <div class="card schedule-card">
+                    <h3>Weekly Meal Schedule (Mon-Fri)</h3>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <strong>Monday:</strong> Yogurt parfait, grilled chicken salad, brown rice + veggies, fruit snack
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Tuesday:</strong> Smoothie + toast, quinoa bowl, baked fish + sweet potato, nuts & seeds
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Wednesday:</strong> Overnight oats, veggie pasta, lean beef + greens, protein bar
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Thursday:</strong> Egg scramble, sushi bowl, turkey meatballs + couscous, apple slices
+                        </div>
+                        <div class="schedule-item">
+                            <strong>Friday:</strong> Whole grain pancakes, burrito bowl, grilled shrimp + salad, dark chocolate square
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hydration Page -->
+        <div id="hydration-page" class="page">
+            <h1 class="welcome">💧 Hydration</h1>
+            
+            <div class="content-layout">
+                <div class="category-panel">
+                    <div class="card hydration-card">
+                        <h3>Water Intake</h3>
+                        <div class="circular-progress-container">
+                            <div class="circular-progress">
+                                <svg class="progress-ring" width="200" height="200">
+                                    <circle class="progress-ring-background" cx="100" cy="100" r="85" stroke="#eee" stroke-width="15" fill="transparent"></circle>
+                                    <circle id="progressCircle" class="progress-ring-circle" cx="100" cy="100" r="85" stroke="#5b4dff" stroke-width="15" fill="transparent" stroke-dasharray="534.07" stroke-dashoffset="334.04"></circle>
+                                </svg>
+                                <div class="circular-progress-content">
+                                    <span id="waterCountDisplay" class="water-count">3</span>
+                                    <span class="water-label">/ 12 glasses</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="water-goal">Goal: 3L (12 glasses)</p>
+                        <div class="hydration-buttons">
+                            <button class="action-btn" onclick="addWater()">+ Add Glass</button>
+                            <button class="action-btn reset-btn" onclick="resetWater()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-panel hydration-visual">
+                    <h2>Stay Hydrated</h2>
+                    <p>Consistent hydration keeps your metabolism active and supports recovery after every workout session.</p>
+                    <div class="hydration-stats">
+                        <div>
+                            <h4>Daily Goal</h4>
+                            <p>3.0 L</p>
+                        </div>
+                        <div>
+                            <h4>Current</h4>
+                            <p id="hydrationCurrentDisplay">0.75 L</p>
+                        </div>
+                        <div>
+                            <h4>Balance</h4>
+                            <p id="hydrationBalanceDisplay">2.25 L</p>
+                        </div>
+                    </div>
+                    <div class="droplet-cluster">
+                        <div class="droplet large"></div>
+                        <div class="droplet medium"></div>
+                        <div class="droplet small"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile-page" class="page">
+            <h1 class="welcome">👤 Profile</h1>
+            
+            <div class="profile-container">
+                <div class="card">
+                    <h3>Your Profile</h3>
+                    <div class="profile-display">
+                        <p><strong>Name:</strong> <span id="profileName">Arya</span></p>
+                        <p><strong>Age:</strong> <span id="profileAge">25</span></p>
+                        <p><strong>Gender:</strong> <span id="profileGender">Male</span></p>
+                        <p><strong>Weight:</strong> <span id="profileWeight">70</span> kg</p>
+                        <p><strong>Height:</strong> <span id="profileHeight">170</span> cm</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Edit Profile</h3>
+                    <div class="profile-form">
+                        <label>Name</label>
+                        <input type="text" id="nameInput" value="Arya" placeholder="Enter your name">
+                        
+                        <label>Age</label>
+                        <input type="number" id="ageInput" value="25" placeholder="Enter your age">
+                        
+                        <label>Gender</label>
+                        <select id="genderInput">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        
+                        <label>Weight (kg)</label>
+                        <input type="number" id="weightProfileInput" value="70" placeholder="Enter weight">
+                        
+                        <label>Height (cm)</label>
+                        <input type="number" id="heightProfileInput" value="170" placeholder="Enter height">
+                        
+                        <button class="action-btn" onclick="updateProfile()">Update Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
