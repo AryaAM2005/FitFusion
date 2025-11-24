@@ -120,10 +120,12 @@ function calculateBMI() {
 
 // Water Intake Tracker
 let waterCount = 3;
+const dailyGoalGlasses = 12;
+const litersPerGlass = 0.25;
 const circumference = 2 * Math.PI * 85; // radius is 85
 
 function addWater() {
-    if (waterCount < 8) {
+    if (waterCount < dailyGoalGlasses) {
         waterCount++;
         updateCircularProgress();
     }
@@ -135,11 +137,15 @@ function resetWater() {
 }
 
 function updateCircularProgress() {
-    const percentage = (waterCount / 8) * 100;
+    const percentage = (waterCount / dailyGoalGlasses) * 100;
     const offset = circumference * (1 - percentage / 100);
     
     const progressCircle = document.getElementById('progressCircle');
     const waterCountDisplay = document.getElementById('waterCountDisplay');
+    const currentDisplay = document.getElementById('hydrationCurrentDisplay');
+    const balanceDisplay = document.getElementById('hydrationBalanceDisplay');
+    const dashboardText = document.getElementById('hydrationDashboardText');
+    const dashboardBar = document.getElementById('hydrationDashboardBar');
     
     if (progressCircle) {
         progressCircle.style.strokeDashoffset = offset;
@@ -147,6 +153,25 @@ function updateCircularProgress() {
     
     if (waterCountDisplay) {
         waterCountDisplay.textContent = waterCount;
+    }
+
+    const currentLiters = (waterCount * litersPerGlass).toFixed(2);
+    const balanceLiters = Math.max(0, (dailyGoalGlasses - waterCount) * litersPerGlass).toFixed(2);
+
+    if (currentDisplay) {
+        currentDisplay.textContent = `${currentLiters} L`;
+    }
+
+    if (balanceDisplay) {
+        balanceDisplay.textContent = `${balanceLiters} L`;
+    }
+
+    if (dashboardText) {
+        dashboardText.textContent = `${Math.round(Math.min(percentage, 100))}% of daily goal`;
+    }
+
+    if (dashboardBar) {
+        dashboardBar.style.width = `${Math.min(percentage, 100)}%`;
     }
 }
 
